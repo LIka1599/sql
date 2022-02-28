@@ -24,25 +24,18 @@ CREATE TABLE image (
 CREATE TABLE product_category (
     product_id INT,
     category_id INT,
-    FOREIGN KEY (product_id) REFERENCES product (product_id),
-    FOREIGN KEY (category_id) REFERENCES category (category_id),
+    FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES category (category_id) ON DELETE CASCADE,
     PRIMARY KEY (category_id, product_id)
 );
 
 CREATE TABLE product_image (
     product_id INT ,
     image_id INT ,
-    FOREIGN KEY (product_id) REFERENCES product (product_id),
-    FOREIGN KEY (image_id) REFERENCES image (image_id),
+    FOREIGN KEY (product_id) REFERENCES product (product_id) ON DELETE CASCADE,
+    FOREIGN KEY (image_id) REFERENCES image (image_id) ON DELETE CASCADE,
     PRIMARY KEY (product_id, image_id)
 );
-
-ALTER TABLE product
-   ADD FOREIGN KEY (main_category_id) REFERENCES product_category (category_id),
-   ADD FOREIGN KEY (main_img_id) REFERENCES product_image (image_id)
-      ON DELETE CASCADE
-      ON UPDATE CASCADE
-;
 
 
 
