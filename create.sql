@@ -1,9 +1,23 @@
-CREATE DATABASE shop;
+/*CREATE DATABASE shop; */
+USE shop;
+
+DROP TABLE IF EXISTS product_category;
+DROP TABLE IF EXISTS product_image;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS image;
+
 
 CREATE TABLE category (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
     description TEXT
+);
+
+
+CREATE TABLE image (
+    image_id INT PRIMARY KEY AUTO_INCREMENT,
+    image VARCHAR(250)
 );
 
 CREATE TABLE product (
@@ -13,12 +27,9 @@ CREATE TABLE product (
     discount FLOAT,
     description TEXT,
     main_category_id INT NOT NULL,
-    main_img_id INT NOT NULL
-);
-
-CREATE TABLE image (
-    image_id INT PRIMARY KEY AUTO_INCREMENT,
-    image VARCHAR(250)
+    main_img_id INT NOT NULL,
+    FOREIGN KEY (main_category_id) REFERENCES category (category_id) ON DELETE CASCADE,
+    FOREIGN KEY (main_img_id) REFERENCES image (image_id) ON DELETE CASCADE
 );
 
 CREATE TABLE product_category (
@@ -46,36 +57,6 @@ VALUES ('Мужчинам', 'Раздел мужской одежды'),
 ('Шорты', 'Раздел с шортами'),
 ('Рубашки', 'Раздел с рубашками');
 
-
-INSERT INTO product (name, price, discount, description, main_category_id, main_img_id)
-VALUES ('Рубашка 1', 1500, 0.1, 'Описание рубашки 1', 5, 1),
-('Рубашка 2', 1600, 0.1, 'Описание рубашки 2', 5, 4),
-('Юбка 1', 2500, 0.2, 'Описание юбки 1', 3, 7),
-('Шорты 1', 2000, 0.8, 'Описание шорт 1', 4, 10),
-('Шорты-юбка 1', 1500, 0.3, 'Описание шорты-юбки 1', 4, 13),
-('Шорты 2', 3500, 0.1, 'Описание шорт 2', 4, 13),
-('Рубашка 3', 4000, 0.2, 'Описание рубашки 3', 5, 16),
-('Юбка 2', 3000, 0.1, 'Описание юбки 2', 3, 19);
-
-
-INSERT INTO product_category (product_id, category_id)
- VALUES (1, 5),
-(1, 2),
-(2, 5),
-(2, 1),
-(3, 3),
-(3, 2),
-(4, 4),
-(4, 1),
-(5, 4),
-(5, 3),
-(5, 2),
-(6, 4),
-(6, 2),
-(7, 5),
-(8, 3),
-(8, 2);
-
 INSERT INTO image (image)
  VALUES ('image_1_1.png'),
  ('image_1_2.png'),
@@ -101,6 +82,35 @@ INSERT INTO image (image)
  ('image_8_1.png'),
  ('image_8_2.png'),
  ('image_8_3.png');
+
+
+INSERT INTO product (name, price, discount, description, main_category_id, main_img_id)
+VALUES ('Рубашка 1', 1500, 0.1, 'Описание рубашки 1', 5, 1),
+('Рубашка 2', 1600, 0.1, 'Описание рубашки 2', 5, 4),
+('Юбка 1', 2500, 0.2, 'Описание юбки 1', 3, 7),
+('Шорты 1', 2000, 0.8, 'Описание шорт 1', 4, 10),
+('Шорты-юбка 1', 1500, 0.3, 'Описание шорты-юбки 1', 4, 13),
+('Шорты 2', 3500, 0.1, 'Описание шорт 2', 4, 13),
+('Рубашка 3', 4000, 0.2, 'Описание рубашки 3', 5, 16),
+('Юбка 2', 3000, 0.1, 'Описание юбки 2', 3, 19);
+
+INSERT INTO product_category (product_id, category_id)
+ VALUES (1, 5),
+(1, 2),
+(2, 5),
+(2, 1),
+(3, 3),
+(3, 2),
+(4, 4),
+(4, 1),
+(5, 4),
+(5, 3),
+(5, 2),
+(6, 4),
+(6, 2),
+(7, 5),
+(8, 3),
+(8, 2);
 
 INSERT INTO product_image (product_id, image_id)
  VALUES (1, 1),
